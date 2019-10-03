@@ -9,6 +9,8 @@ module.exports = {
       toDate: {type: Sequelize.DATE, allowNull: false},
       fromTime: {type: Sequelize.TIME, allowNull: true},
       toTime: {type: Sequelize.TIME, allowNull: true},
+      startDisplay: {type: Sequelize.DATEONLY, allowNull: false},
+      endDisplay: {type: Sequelize.DATEONLY, allowNull: false},
       isAllday: {type: Sequelize.TINYINT, allowNull: false}
     });
   },

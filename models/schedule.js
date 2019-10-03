@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         fromTime: {type: DataTypes.TIME, allowNull: true},
         toDate: {type: DataTypes.DATEONLY, allowNull: false},
         toTime: {type: DataTypes.TIME, allowNull: true},
+        startDisplay: {type: DataTypes.DATEONLY, allowNull: false},
+        endDisplay: {type: DataTypes.DATEONLY, allowNull: false},
         isAllday: {type: DataTypes.TINYINT, allowNull: false}
     },{
         timestamps: false

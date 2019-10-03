@@ -166,6 +166,9 @@ a:hover {
   grid-column-start: 8; }
 .week .day:nth-child(9) > .event {
   grid-column-start: 9; }
+
+
+
 .week .day [data-span="1"] {
   grid-column-end: span 1; }
 .week .day [data-span="2"] {
@@ -180,6 +183,7 @@ a:hover {
   grid-column-end: span 6; }
 .week .day [data-span="7"] {
   grid-column-end: span 7; }
+
 
 .daily-calendar {
   display: grid;

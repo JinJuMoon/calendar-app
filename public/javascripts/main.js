@@ -11,9 +11,13 @@ $(function () {
 });
 
 
+
 $('.week, .daily-calendar').click(function() {
+    console.log(this.Value);
     $('#registerSchedule').modal('show');
 });
+
+
 
 $(".event-consecutive, .event, .event-repeated").click(function(event) {
     event.stopPropagation();
@@ -58,18 +62,24 @@ var deleteCookie = function(name) {
 
 
 
+const calYear = Number(getCookie('calYear'));
+const calMonth = Number(getCookie('calMonth'));
+const calDate = Number(getCookie('calDate'));
+const calDay = getCookie('calDay');
+console.log("calYear : "+calYear);
+console.log("calMonth : "+calMonth);
+console.log("calDate : "+calDate);
+console.log("calDay : "+calDay);
 
+
+
+// 달력 전후 이동
 $( function() {
-    const calYear = getCookie('calYear');
-    const calMonth = getCookie('calMonth');
-    const calDate = getCookie('calDate');
-    const calDay = getCookie('calDay');
 
     $('#cal-month').html(calYear+"년 "+calMonth+"월");
     $('#cal-date').html(calDate+"일 "+decodeURI(calDay));
     $('#prevMonth').click(function() {
         if(calMonth === '1') {
-            console.log('1');
             setCookie('calYear', calYear-1, 1);
             setCookie('calMonth', 12);
             window.location.reload();
@@ -84,6 +94,7 @@ $( function() {
             setCookie('calMonth', 1);
             window.location.reload();
         } else {
+            // deleteCookie('calMonth');
             setCookie('calMonth', calMonth+1, 1);
             window.location.reload();
         }
