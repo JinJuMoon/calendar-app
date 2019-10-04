@@ -11,7 +11,8 @@ module.exports = {
       toTime: {type: Sequelize.TIME, allowNull: true},
       startDisplay: {type: Sequelize.DATEONLY, allowNull: false},
       endDisplay: {type: Sequelize.DATEONLY, allowNull: false},
-      isAllday: {type: Sequelize.TINYINT, allowNull: false}
+      isAllday: {type: Sequelize.TINYINT, allowNull: false},
+      isConsecutive: {type: DataTypes.TINYINT, allowNull: false}
     });
   },
   down: (queryInterface, Sequelize) => {

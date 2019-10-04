@@ -1,0 +1,33 @@
+extends layout
+include mixins
+
+block content
+    .calendar-container
+        .calendar-header
+            button#today.btn.btn-light Today
+            .ico-arrow
+                a#prevMonth(data-toggle='tooltip', data-placement='top', title='이전')
+                    i.material-icons chevron_left
+                a#nextMonth(data-toggle='tooltip', data-placement='top', title='다음')
+                    i.material-icons chevron_right
+            h4#cal-month
+            ul#view.nav.nav-tabs.view-tab(role='tablist')
+                li.nav-item
+                    a#tab-month.nav-link(href='/', role='tab', aria-controls='month', aria-selected='true') &#xC6D4;
+                li.nav-item
+                    a#tab-day.nav-link(href='daily', role='tab', aria-controls='day', aria-selected='false') &#xC77C;
+        .tab-content
+            .monthly-calendar
+                .week-day
+                    .day-name &#xC77C;
+                    .day-name &#xC6D4;
+                    .day-name &#xD654;
+                    .day-name &#xC218;
+                    .day-name &#xBAA9;
+                    .day-name &#xAE08;
+                    .day-name &#xD1A0;
+                +dayBlock1(prevDates1, prevDates2, scheduleArray1, scheduleArray2)
+                each dates in presentDatesArray
+                    +dayBlock2(dates, scheduleArray2)
+                +dayBlock3(nextDates2, nextDates1, scheduleArray2, scheduleArray3)
+    +registerBlock

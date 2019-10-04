@@ -1,17 +1,142 @@
-mixin dayBlock(dates, scheduleArray)
+mixin dayBlock1(prevDates1, prevDates2, scheduleArray1, scheduleArray2)
+    .week
+        each date in prevDates1
+            .day
+                h3.day-label= date
+                if scheduleArray1 !== undefined
+                    if scheduleArray1[date] !== undefined
+                        each schedule in scheduleArray1[date]
+                            - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
+                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
+                            if schedule.isConsecutive || (schedule.period > 1)
+                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+                            else
+                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+        each date in prevDates2
+            .day
+                h3.day-label(id=date)= date
+                if scheduleArray2 !== undefined
+                    if scheduleArray2[date] !== undefined
+                        each schedule in scheduleArray2[date]
+                            - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
+                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
+                            if schedule.isConsecutive || (schedule.period > 1)
+                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+                            else
+                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+
+
+
+mixin dayBlock2(dates, scheduleArray2)
     .week
         each date in dates
             .day
                 h3.day-label(id=date)= date
-                if scheduleArray[date] !== undefined
-                    each schedule in scheduleArray[date]
-                        if schedule.toOnlyDate === schedule.fromOnlyDate
+                if scheduleArray2 !== undefined
+                    if scheduleArray2[date] !== undefined
+                        each schedule in scheduleArray2[date]
                             - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
-                                .event.event-start.event-end(data-span=`${schedule.toOnlyDate - schedule.fromOnlyDate + 1}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-                        else
-                            .event.event-consecutive.event-start.event-end(data-span=`${schedule.toOnlyDate - schedule.fromOnlyDate + 1}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
+                            if schedule.isConsecutive || (schedule.period > 1)
+                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+                            else
+                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+
+mixin dayBlock3(nextDates2, nextDates1, scheduleArray2, scheduleArray3)
+    .week
+        each date in nextDates2
+            .day
+                h3.day-label(id=date)= date
+                if scheduleArray2 !== undefined
+                    if scheduleArray2[date] !== undefined
+                        each schedule in scheduleArray2[date]
+                            - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
+                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
+                            if schedule.isConsecutive || (schedule.period > 1)
+                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+                            else
+                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+        each date in nextDates1
+            .day
+                h3.day-label(id=date)= date
+                if scheduleArray3 !== undefined
+                    if scheduleArray3[date] !== undefined
+                        each schedule in scheduleArray3[date]
+                            - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
+                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
+                            if schedule.isConsecutive || (schedule.period > 1)
+                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+                            else
+                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+
 
 
 mixin scheduleBlock(schedule)
     - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
-        .event-consecutive.event-start.event-end(data-toggle='popover', data-html='true', data-placement='left', data-content=`<div class="content-line"><div class="event-consecutive-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`)= schedule.title
+    - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
+    if schedule.isConsecutive || (schedule.period > 1)
+        .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+    else
+        .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+
+
+
+mixin registerBlock
+    #registerSchedule.modal.fade(tabindex='-1', role='dialog', aria-labelledby='registerScheduleLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#registerScheduleLabel.modal-title &#xC77C;&#xC815; &#xB9CC;&#xB4E4;&#xAE30;
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                form#registerForm(action='/register', method='post')
+                    .modal-body
+                        .form-group
+                            label.col-form-label &#xC77C;&#xC815; &#xC81C;&#xBAA9;
+                            input#title.form-control(type='text', name='title')
+                        .form-group
+                            label.col-form-label(for='message-text') &#xC77C;&#xC815; &#xC124;&#xBA85;
+                            textarea#description.form-control(name='description')
+                        .form-row
+                            .col-md-6
+                                .form-group
+                                    label.col-form-label &#xC77C;&#xC815; &#xC2DC;&#xC791; &#xB0A0;&#xC9DC;
+                                    #datetimepicker1.input-group.date(data-target-input='nearest')
+                                        input#fromDate.form-control.datetimepicker-input(type='text', data-target='#datetimepicker1', name="fromDate")
+                                        .input-group-append(data-target='#datetimepicker1', data-toggle='datetimepicker')
+                                            .input-group-text
+                                                i.material-icons calendar_today
+                            .col-md-6
+                                .form-group
+                                    label.col-form-label &#xC77C;&#xC815; &#xC2DC;&#xC791; &#xC2DC;&#xAC04;
+                                    #datetimepicker2.input-group.date(data-target-input='nearest')
+                                        input#fromTime.form-control.datetimepicker-input(type='text', data-target='#datetimepicker2', name="fromTime")
+                                        .input-group-append(data-target='#datetimepicker2', data-toggle='datetimepicker')
+                                            .input-group-text
+                                                i.material-icons access_time
+                        .form-row
+                            .col-md-6
+                                .form-group
+                                    label.col-form-label &#xC77C;&#xC815; &#xC885;&#xB8CC; &#xB0A0;&#xC9DC;
+                                    #datetimepicker3.input-group.date(data-target-input='nearest')
+                                        input#toDate.form-control.datetimepicker-input(type='text', data-target='#datetimepicker3', name="toDate2")
+                                        .input-group-append(data-target='#datetimepicker3', data-toggle='datetimepicker')
+                                            .input-group-text
+                                                i.material-icons calendar_today
+                            .col-md-6
+                                .form-group
+                                    label.col-form-label &#xC77C;&#xC815; &#xC885;&#xB8CC; &#xC2DC;&#xAC04;
+                                    #datetimepicker4.input-group.date(data-target-input='nearest')
+                                        input#toTime.form-control.datetimepicker-input(type='text', data-target='#datetimepicker4', name="toTime")
+                                        .input-group-append(data-target='#datetimepicker4', data-toggle='datetimepicker')
+                                            .input-group-text
+                                                i.material-icons access_time
+                            .form-check.form-check-inline
+                                input#inlineCheckbox1.form-check-input(type='checkbox', value='option1')
+                                label.form-check-label(for='inlineCheckbox1') &#xB9E4;&#xC6D4; &#xBC18;&#xBCF5;
+                            .form-check.form-check-inline
+                                input#isAllday.form-check-input(type='checkbox', value='true', name='isAllday')
+                                label.form-check-label(for='isAllday') &#xD558;&#xB8E8; &#xC885;&#xC77C;
+                    .modal-footer
+                        button.btn.btn-secondary(type='button', data-dismiss='modal') &#xCDE8;&#xC18C;
+                        button.btn.btn-primary(type='submit') &#xC77C;&#xC815; &#xB9CC;&#xB4E4;&#xAE30;

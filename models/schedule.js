@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         toTime: {type: DataTypes.TIME, allowNull: true},
         startDisplay: {type: DataTypes.DATEONLY, allowNull: false},
         endDisplay: {type: DataTypes.DATEONLY, allowNull: false},
-        isAllday: {type: DataTypes.TINYINT, allowNull: false}
+        isAllday: {type: DataTypes.TINYINT, allowNull: false},
+        isConsecutive: {type: DataTypes.TINYINT, allowNull: false}
     },{
         timestamps: false
     });
