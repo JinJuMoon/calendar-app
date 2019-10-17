@@ -38,7 +38,9 @@ router.get('/', function(req, res, next) {
 
             models.Schedule.findAll({
                 raw: true,
-                where: {}
+                where: {
+                    startDisplay: { [Op.between]: [startDate1.format('YYYY-MM-DD'), endDate1.format('YYYY-MM-DD')] }
+                }
             }).then(function(results) {
 
                 let length = endDate1.day()+1;
@@ -71,7 +73,10 @@ router.get('/', function(req, res, next) {
 
             models.Schedule.findAll({
                 raw: true,
-                where: {}
+                where: {
+                    startDisplay: { [Op.between]: [startDate2.format('YYYY-MM-DD'), endDate2.format('YYYY-MM-DD')],
+                                    [Op.notBetween]: [startDate1.format('YYYY-MM-DD'), endDate1.format('YYYY-MM-DD')] }
+                }
             }).then(function(results) {
 
                 let length = endDate2.date();
@@ -106,7 +111,6 @@ router.get('/', function(req, res, next) {
                 raw: true,
                 where: {
                     startDisplay: { [Op.between]: [startDate3.format('YYYY-MM-DD'), endDate3.format('YYYY-MM-DD')] }
-
                 }
             }).then(function(results) {
 

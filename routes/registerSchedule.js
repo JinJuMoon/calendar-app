@@ -18,8 +18,8 @@ router.post('/register', function(req, res, next) {
     const dateSpan = moment.duration(moment(toDate).diff(moment(fromDate))).days() + 1;
     const possibleSpan = 7-moment(fromDate).day();
 
-    if( (dateSpan - possibleSpan) > 7 ) {
-        const n = Math.floor( (dateSpan - possibleSpan) / 7 );
+    if( (dateSpan - possibleSpan) > 0 ) {
+        const n = Math.floor( (dateSpan - possibleSpan) / 7 ); // 초과된 주의 개수
         const endDisplay2 = req.body.toDate2;
         const endDisplay = moment(fromDate).add(possibleSpan-1, 'days').format('L');
         const startDisplay2 = moment(fromDate).add(possibleSpan+(n*7), 'days').format('L');
@@ -44,30 +44,31 @@ router.post('/register', function(req, res, next) {
                 console.log(err);
             });
 
-
-        for(let i=0; i<n; i++) {
-            let startDisplays = moment(fromDate).add(possibleSpan+(i*7), 'days').format('L');
-            let endDisplays = moment(fromDate).add(possibleSpan+(i*7)+6 , 'days').format('L');
-
-            models.Schedule.create({
-                title: title,
-                description: description,
-                fromDate: fromDate,
-                fromTime: fromTime,
-                toDate: toDate,
-                toTime: toTime,
-                isAllday: isAllday,
-                startDisplay: startDisplays,
-                endDisplay: endDisplays,
-                isConsecutive: true
-            })
-                .then(result => {
-                    console.log("데이터 추가 성공");
+        if(n >=1) {
+            for(let i=0; i<n; i++) {
+                let startDisplays = moment(fromDate).add(possibleSpan+(i*7), 'days').format('L');
+                let endDisplays = moment(fromDate).add(possibleSpan+(i*7)+6 , 'days').format('L');
+    
+                models.Schedule.create({
+                    title: title,
+                    description: description,
+                    fromDate: fromDate,
+                    fromTime: fromTime,
+                    toDate: toDate,
+                    toTime: toTime,
+                    isAllday: isAllday,
+                    startDisplay: startDisplays,
+                    endDisplay: endDisplays,
+                    isConsecutive: true
                 })
-                .catch( err => {
-                    console.log("데이터 추가 실패");
-                    console.log(err);
-                });
+                    .then(result => {
+                        console.log("데이터 추가 성공");
+                    })
+                    .catch( err => {
+                        console.log("데이터 추가 실패");
+                        console.log(err);
+                    });
+            }
         }
 
         models.Schedule.create({
@@ -90,55 +91,6 @@ router.post('/register', function(req, res, next) {
                 console.log("데이터 추가 실패");
                 console.log(err);
             });
-
-
-    } else if( dateSpan > possibleSpan ) {
-
-        const endDisplay2 = req.body.toDate2;
-        const endDisplay = moment(fromDate).add(possibleSpan-1, 'days').format('L');
-        const startDisplay2 = moment(fromDate).add(possibleSpan, 'days').format('L');
-
-
-        models.Schedule.create({
-            title: title,
-            description: description,
-            fromDate: fromDate,
-            fromTime: fromTime,
-            toDate: toDate,
-            toTime: toTime,
-            isAllday: isAllday,
-            startDisplay: startDisplay,
-            endDisplay: endDisplay,
-            isConsecutive: true
-        })
-        .then(result => {
-            console.log("데이터 추가 성공");
-        })
-        .catch( err => {
-            console.log("데이터 추가 실패");
-            console.log(err);
-        });
-
-        models.Schedule.create({
-            title: title,
-            description: description,
-            fromDate: fromDate,
-            fromTime: fromTime,
-            toDate: toDate,
-            toTime: toTime,
-            isAllday: isAllday,
-            startDisplay: startDisplay2,
-            endDisplay: endDisplay2,
-            isConsecutive: true
-        })
-        .then(result => {
-            console.log("데이터 추가 성공");
-            res.redirect("/");
-        })
-        .catch( err => {
-            console.log("데이터 추가 실패");
-            console.log(err);
-        });
 
     } else {
         models.Schedule.create({
