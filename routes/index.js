@@ -83,7 +83,7 @@ router.get('/', function(req, res, next) {
                 let indexDate = endDate1.clone();
                 for (let i=0; i<length; i++) {
                     indexDate.add(1, 'days');
-                    for(var j in results) {
+                    for(let j=0; j<results.length; j++) {
                         const schedule = results[j];
                         const t1 = moment(schedule.startDisplay);
                         const t2 = moment(schedule.endDisplay).endOf('day');
@@ -95,8 +95,8 @@ router.get('/', function(req, res, next) {
                             schedule.period = moment.duration(t2.diff(t1)).days() + 1;
                             schedule.startOnlyDay = Number(moment(schedule.startDisplay).day());
                             schedule.endOnlyDay = Number(moment(schedule.endDisplay).day());
-                            results[j] = "";
                             scheduleArray2[index].push(schedule);
+                            results.splice(j--,1);
                         }
                     }
                 }

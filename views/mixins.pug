@@ -42,6 +42,8 @@ mixin dayBlock2(dates, scheduleArray2)
                             else
                                 .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
 
+
+
 mixin dayBlock3(nextDates2, nextDates1, scheduleArray2, scheduleArray3)
     .week
         each date in nextDates2
