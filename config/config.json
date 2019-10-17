@@ -1,23 +1,19 @@
 {
   "development": {
-    "username": "be3d34312fd1be",
-    "password": "4ba1a5f7",
+    "username": "root",
+    "password": "1234",
     "database": "calendar_app",
-    "host": "us-cdbr-iron-east-05.cleardb.net",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "be3d34312fd1be",
-    "password": "4ba1a5f7",
+    "username": "root",
+    "password": "password",
     "database": "my_database",
-    "host": "us-cdbr-iron-east-05.cleardb.net",
+    "host": "mysql-server",
     "dialect": "mysql"
   },
   "production": {
-    "username": "be3d34312fd1be",
-    "password": "4ba1a5f7",
-    "database": "my_database",
-    "host": "us-cdbr-iron-east-05.cleardb.net",
-    "dialect": "mysql"
+    "use_env_variable": "DATABASE_URL"
   }
 }
