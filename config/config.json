@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "heroku",
-    "password": "1234",
+    "username": "be3d34312fd1be",
+    "password": "4ba1a5f7",
     "database": "calendar_app",
-    "host": "127.0.0.1",
+    "host": "us-cdbr-iron-east-05.cleardb.net",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": "password",
+    "username": "be3d34312fd1be",
+    "password": "4ba1a5f7",
     "database": "my_database",
-    "host": "mysql-server",
+    "host": "us-cdbr-iron-east-05.cleardb.net",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "password",
+    "username": "be3d34312fd1be",
+    "password": "4ba1a5f7",
     "database": "my_database",
-    "host": "mysql-server",
+    "host": "us-cdbr-iron-east-05.cleardb.net",
     "dialect": "mysql"
   }
 }
