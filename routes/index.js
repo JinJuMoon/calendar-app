@@ -31,9 +31,6 @@ router.get('/', function(req, res, next) {
         const scheduleArray3 = Array(arrayLength).fill(null).map(() => Array());
 
 
-
-
-
         Promise.all([
 
             models.Schedule.findAll({
@@ -41,7 +38,7 @@ router.get('/', function(req, res, next) {
                 where: {
                     startDisplay: { [Op.between]: [startDate1.format('YYYY-MM-DD'), endDate1.format('YYYY-MM-DD')] }
                 }
-            }).then(function(results) {
+            }).then( results => {
 
                 let length = endDate1.day()+1;
                 let indexDate = startDate1.clone().subtract(1, 'days');
@@ -66,7 +63,7 @@ router.get('/', function(req, res, next) {
                 }
                 return scheduleArray1;
 
-            }).catch(function(err) {
+            }).catch( err => {
                 console.log(err);
             }),
 
@@ -77,7 +74,7 @@ router.get('/', function(req, res, next) {
                     startDisplay: { [Op.between]: [startDate2.format('YYYY-MM-DD'), endDate2.format('YYYY-MM-DD')],
                                     [Op.notBetween]: [startDate1.format('YYYY-MM-DD'), endDate1.format('YYYY-MM-DD')] }
                 }
-            }).then(function(results) {
+            }).then( results => {
 
                 let length = endDate2.date();
                 let indexDate = endDate1.clone();
@@ -102,7 +99,7 @@ router.get('/', function(req, res, next) {
                 }
                 return scheduleArray2;
 
-            }).catch(function(err) {
+            }).catch( err => {
                 console.log(err);
             }),
 
@@ -112,7 +109,7 @@ router.get('/', function(req, res, next) {
                 where: {
                     startDisplay: { [Op.between]: [startDate3.format('YYYY-MM-DD'), endDate3.format('YYYY-MM-DD')] }
                 }
-            }).then(function(results) {
+            }).then( results => {
 
                 let length = 7-startDate3.day();
                 let indexDate = startDate3.clone().subtract(1, 'days');
@@ -137,7 +134,7 @@ router.get('/', function(req, res, next) {
                 }
                 return scheduleArray3;
 
-            }).catch(function(err) {
+            }).catch( err => {
                 console.log(err);
             })
 
@@ -160,7 +157,7 @@ router.get('/daily', function(req, res, next) {
         models.Schedule.findAll({
             raw: true,
             where: {}
-        }).then(function(results) {
+        }).then( results => {
             const dailyScheduleArray = [];
 
             for (var i in results) {
@@ -180,14 +177,14 @@ router.get('/daily', function(req, res, next) {
             }
             return dailyScheduleArray;
         })
-            .then(function(dailyScheduleArray) {
+            .then( dailyScheduleArray => {
                 res.cookie('calYear', String(calDate.year()));
                 res.cookie('calMonth', String(calDate.month()+1));
                 res.cookie('calDate', String(calDate.date()));
                 res.cookie('calDay', String(calDate.locale('ko').format('dddd')));
                 res.render('daily', {dailyScheduleArray: dailyScheduleArray});
             })
-            .catch(function(err) {
+            .catch( err => {
                 console.log(err);
             });
     })
