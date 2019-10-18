@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
-      return queryInterface.bulkInsert('Schedules', [
+      return queryInterface.bulkInsert('Schedule', [
       { id: 1,
         title: '9월만 일정',
         description: '9월만 일정',
@@ -119,6 +119,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
 
-      return queryInterface.bulkDelete('Schedules', null, {});
+      return queryInterface.bulkDelete('Schedule', null, {});
   }
 };
