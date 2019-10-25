@@ -1,3 +1,13 @@
+mixin scheduleBlock(schedule)
+    - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
+    - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
+    if schedule.isConsecutive || (schedule.period > 1)
+        .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+    else
+        .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+
+
+
 mixin dayBlock1(prevDates1, prevDates2, scheduleArray1, scheduleArray2)
     .week
         each date in prevDates1
@@ -6,25 +16,14 @@ mixin dayBlock1(prevDates1, prevDates2, scheduleArray1, scheduleArray2)
                 if scheduleArray1 !== undefined
                     if scheduleArray1[date] !== undefined
                         each schedule in scheduleArray1[date]
-                            - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
-                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
-                            if schedule.isConsecutive || (schedule.period > 1)
-                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-                            else
-                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+                            +scheduleBlock(schedule)
         each date in prevDates2
             .day
                 h3.day-label(id=date)= date
                 if scheduleArray2 !== undefined
                     if scheduleArray2[date] !== undefined
                         each schedule in scheduleArray2[date]
-                            - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
-                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
-                            if schedule.isConsecutive || (schedule.period > 1)
-                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-                            else
-                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-
+                           +scheduleBlock(schedule)
 
 
 mixin dayBlock2(dates, scheduleArray2)
@@ -35,13 +34,7 @@ mixin dayBlock2(dates, scheduleArray2)
                 if scheduleArray2 !== undefined
                     if scheduleArray2[date] !== undefined
                         each schedule in scheduleArray2[date]
-                            - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
-                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
-                            if schedule.isConsecutive || (schedule.period > 1)
-                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-                            else
-                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-
+                            +scheduleBlock(schedule)
 
 
 mixin dayBlock3(nextDates2, nextDates1, scheduleArray2, scheduleArray3)
@@ -52,34 +45,14 @@ mixin dayBlock3(nextDates2, nextDates1, scheduleArray2, scheduleArray3)
                 if scheduleArray2 !== undefined
                     if scheduleArray2[date] !== undefined
                         each schedule in scheduleArray2[date]
-                            - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
-                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
-                            if schedule.isConsecutive || (schedule.period > 1)
-                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-                            else
-                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+                            +scheduleBlock(schedule)
         each date in nextDates1
             .day
                 h3.day-label(id=date)= date
                 if scheduleArray3 !== undefined
                     if scheduleArray3[date] !== undefined
                         each schedule in scheduleArray3[date]
-                            - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
-                            - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
-                            if schedule.isConsecutive || (schedule.period > 1)
-                                .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-                            else
-                                .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-
-
-
-mixin scheduleBlock(schedule)
-    - var time = schedule.isAllday? '하루종일' : (schedule.fromTime+' ~ '+schedule.toTime)
-    - var dataSpan = schedule.endOnlyDay - schedule.startOnlyDay + 1
-    if schedule.isConsecutive || (schedule.period > 1)
-        .event.event-consecutive.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}</div><div><span class="reservation-time">${schedule.fromTime} ~ ${schedule.toTime}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
-    else
-        .event.event-start.event-end(data-span=`${dataSpan}`, data-toggle='popover', data-html='true', data-content=`<div class="content-line"><div class="event-marking"></div><div class="title"><h5>${schedule.title}</h5><div>${schedule.fromDate} ~ ${schedule.toDate}<div><div><span class="reservation-time">${time}</span></div></div></div><div class="content-line"><i class="material-icons">notes</i><div class="title">${schedule.description}</div></div>`, data-original-title='', title='')= schedule.title
+                            +scheduleBlock(schedule)
 
 
 
